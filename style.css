@@ -1,4 +1,8 @@
-.container{
+body {
+    background-color: #007AFF !important;
+}
+
+.container {
     min-height: 100vh;
     background-color: #007AFF !important;
     display: flex;
