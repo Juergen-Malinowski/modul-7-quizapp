@@ -59,6 +59,7 @@ function init() {
 
 function showQuestion() {
     let question = questions[correntQuestion];
+    document.getElementById('question_number').innerHTML = correntQuestion+1;
     document.getElementById('questiontext').innerHTML = question['question'];
     document.getElementById('answer_1').innerHTML = question['answer_1'];
     document.getElementById('answer_2').innerHTML = question['answer_2'];
@@ -69,25 +70,44 @@ function showQuestion() {
 function answer(selection) {
     let question = questions[correntQuestion];
     let selectedQuestionNumber = selection.slice(-1);
-
-    console.log('The Selection was: ', selection);
-    console.log('actuell question is: ', question['question']);
-
     let idOfRightAnswer = `answer_${question['right_answer']}`;
-
+    // document.getElementById(selection).parentNode.classList.remove('bg-danger');
+    // document.getElementById(idOfRightAnswer).parentNode.classList.remove('bg-success');
     if (selectedQuestionNumber == question['right_answer']) {
-        console.log('Richtige Antwort !');
         document.getElementById(selection).parentNode.classList.add('bg-success');
         // "bg-" für background            
         // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
         // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
 
     } else {
-        console.log('Falsche Antwort !');
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
     document.getElementById('next_button').disabled = false;
+}
+
+function nextQuestion() {
+    document.getElementById('next_button').disabled = true;
+    correntQuestion++;
+    if (correntQuestion < questions.length) {
+        showQuestion();
+    } else return;
+    resetAnswerButtons()
+}
+
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+    // for (let index = 1; index < 5; index++) {
+    //     document.getElementById(`answer_+ ${index}`).parentNode.remove('bg-danger');
+    //     document.getElementById(`answer_+ ${index}`).parentNode.remove('bg-success');
+    // }
 }
 
 
