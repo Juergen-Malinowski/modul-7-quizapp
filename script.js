@@ -20,7 +20,7 @@ let questions = [
         "answer_1": "D64-a",
         "answer_2": "ATA Lerchon",
         "answer_3": "ZX Spectrum",
-        "answer_4": "Lightning Sven",
+        "answer_4": "Lightning Seven",
         "right_answer": 3,
     },
     {
