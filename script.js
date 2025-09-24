@@ -72,7 +72,7 @@ function showQuestion() {
         checkResultOfGame();
     } else {   // NÄCHSTE Frage ...
         updateProcessBar();
-        buildNextForm()
+        buildNextQuestion()
     }
 };
 
@@ -109,7 +109,7 @@ function updateProcessBar() {
     document.getElementById('progress_bar').style.width = `${percent}%`;
 }
 
-function buildNextForm() {
+function buildNextQuestion() {
     let question = questions[correntQuestion];
     document.getElementById('question_number').innerHTML = correntQuestion + 1;
     document.getElementById('questiontext').innerHTML = question['question'];
