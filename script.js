@@ -55,7 +55,7 @@ let correntQuestion = 0;
 function init() {
     document.getElementById('all_questions').innerHTML = questions.length;
     showQuestion();
-}
+};
 
 function showQuestion() {
     let question = questions[correntQuestion];
@@ -65,6 +65,22 @@ function showQuestion() {
     document.getElementById('answer_3').innerHTML = question['answer_3'];
     document.getElementById('answer_4').innerHTML = question['answer_4'];
 };
+
+function answer(selection){
+        let question = questions[correntQuestion];
+        let selectedQuestionNumber = selection.slice(-1);
+
+        console.log('The Selection was: ', selection);
+        console.log('actuell question is: ', question['question']);        
+
+        if (selectedQuestionNumber == question['right_answer'] ) {
+            console.log('Richtige Antwort !');
+            
+        } else {
+            console.log('Falsche Antwort !');
+            
+        }
+    }
 
 
 
