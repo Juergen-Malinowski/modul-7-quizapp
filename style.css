@@ -35,3 +35,14 @@ body {
     /* ACHTUNG: style.css NACH bootstrap einbinden !!! */
     color: white;
 }
+
+.width-100 {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+}

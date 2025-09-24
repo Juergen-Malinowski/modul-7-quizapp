@@ -50,6 +50,10 @@ let questions = [
 ];
 
 let correntQuestion = 0;
+let rightQuestions = 0;
+let questionPicture = "./img/question.jpg";
+let winningPicture = "./img/pokal.png";
+let showingPicture = questionPicture;
 
 
 function init() {
@@ -58,12 +62,21 @@ function init() {
 };
 
 function showQuestion() {
+    document.getElementById("show_picture").src = showingPicture;
     if (correntQuestion >= questions.length) {
         // in HTML hat die ID "end_screen" den style="display: none;" ...
         // dieser wird mit der Leerzuweisung .style ='' gelöscht !!!
-        document.getElementById('end_screen').style ='';
+        document.getElementById('end_screen').style = '';
         // und hier muss "display: none;" hinzugefügt werden ...
         document.getElementById('question_body').style = 'display: none;';
+        document.getElementById('all_questions_result').innerHTML = questions.length;
+        document.getElementById('right_questions').innerHTML = rightQuestions;
+        if (rightQuestions == questions.length) {
+            showingPicture = winningPicture;
+            document.getElementById("show_picture").src = showingPicture;
+        } else {
+        document.getElementById('show_picture').style = 'display: none;';
+        }
     } else {
         let question = questions[correntQuestion];
         document.getElementById('question_number').innerHTML = correntQuestion + 1;
@@ -85,7 +98,7 @@ function answer(selection) {
         // "bg-" für background            
         // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
         // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
-
+        rightQuestions++;
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
