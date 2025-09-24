@@ -58,21 +58,28 @@ function init() {
 };
 
 function showQuestion() {
-    let question = questions[correntQuestion];
-    document.getElementById('question_number').innerHTML = correntQuestion+1;
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if (correntQuestion >= questions.length) {
+        // in HTML hat die ID "end_screen" den style="display: none;" ...
+        // dieser wird mit der Leerzuweisung .style ='' gelöscht !!!
+        document.getElementById('end_screen').style ='';
+        // und hier muss "display: none;" hinzugefügt werden ...
+        document.getElementById('question_body').style = 'display: none;';
+    } else {
+        let question = questions[correntQuestion];
+        document.getElementById('question_number').innerHTML = correntQuestion + 1;
+        document.getElementById('questiontext').innerHTML = question['question'];
+        document.getElementById('answer_1').innerHTML = question['answer_1'];
+        document.getElementById('answer_2').innerHTML = question['answer_2'];
+        document.getElementById('answer_3').innerHTML = question['answer_3'];
+        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    }
 };
 
 function answer(selection) {
     let question = questions[correntQuestion];
     let selectedQuestionNumber = selection.slice(-1);
     let idOfRightAnswer = `answer_${question['right_answer']}`;
-    // document.getElementById(selection).parentNode.classList.remove('bg-danger');
-    // document.getElementById(idOfRightAnswer).parentNode.classList.remove('bg-success');
+
     if (selectedQuestionNumber == question['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
         // "bg-" für background            
@@ -89,10 +96,11 @@ function answer(selection) {
 function nextQuestion() {
     document.getElementById('next_button').disabled = true;
     correntQuestion++;
-    if (correntQuestion < questions.length) {
-        showQuestion();
-    } else return;
+    // if (correntQuestion < questions.length) {
+    //     showQuestion();
+    // } else return;
     resetAnswerButtons()
+    showQuestion();
 }
 
 function resetAnswerButtons() {
