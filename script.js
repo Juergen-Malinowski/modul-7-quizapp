@@ -76,18 +76,8 @@ function showQuestion() {
         document.getElementById('all_questions_result').innerHTML = questions.length;
         document.getElementById('right_questions').innerHTML = rightQuestions;
 
-        if (rightQuestions == questions.length) {   // ALLES RICHTIG ... POKAL zeigen !!!
-            audioWinning.play();
-            document.getElementById('title_picture').style = '';
-            document.getElementById('title_picture').style = 'display: none;';
-            document.getElementById("show_picture").src = winningPicture;
-        } else { // MIT FEHLER ... ERGEBNIS zeigen !!!
-            audioResult.play();
-            document.getElementById('title_picture').style = '';
-            document.getElementById('title_picture').style = 'display: none;';
-            document.getElementById("show_picture").src = resultPicture;
+        checkEndOfGame();
 
-        }
     } else {   // NÄCHSTE Frage ...
         // PROGRESS-BAR berechnen ... WERT ausgeben, BALKEN-Forschritt vergrößern
         let percent = Math.round((correntQuestion + 1) / questions.length * 100);  // "Math.round()" rundet auf GANZ Zahl auf
@@ -96,6 +86,26 @@ function showQuestion() {
         document.getElementById('progress_bar').innerHTML = percent + ' %';
         document.getElementById('progress_bar').style.width = `${percent}%`;
 
+        buildNextForm()
+    }
+};
+
+function checkEndOfGame() {
+    if (rightQuestions == questions.length) {   // ALLES RICHTIG ... POKAL zeigen !!!
+        audioWinning.play();
+        document.getElementById('title_picture').style = '';
+        document.getElementById('title_picture').style = 'display: none;';
+        document.getElementById("show_picture").src = winningPicture;
+    } else { // MIT FEHLER ... ERGEBNIS zeigen !!!
+        audioResult.play();
+        document.getElementById('title_picture').style = '';
+        document.getElementById('title_picture').style = 'display: none;';
+        document.getElementById("show_picture").src = resultPicture;
+
+    }
+}
+
+function buildNextForm() {
         let question = questions[correntQuestion];
         document.getElementById('question_number').innerHTML = correntQuestion + 1;
         document.getElementById('questiontext').innerHTML = question['question'];
@@ -103,8 +113,7 @@ function showQuestion() {
         document.getElementById('answer_2').innerHTML = question['answer_2'];
         document.getElementById('answer_3').innerHTML = question['answer_3'];
         document.getElementById('answer_4').innerHTML = question['answer_4'];
-    }
-};
+}
 
 function answer(selection) {  // ANTWORT wurde ausgelöst ... (selection enthält Antwort-Button)
     let question = questions[correntQuestion];   // ARRAY ... Nr. korrekte Antwort?
