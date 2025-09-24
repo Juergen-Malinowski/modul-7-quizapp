@@ -104,7 +104,6 @@ function updateProcessBar() {
     // PROGRESS-BAR berechnen ... WERT ausgeben, BALKEN-Forschritt vergrößern
     let percent = Math.round((correntQuestion + 1) / questions.length * 100);  // "Math.round()" rundet auf GANZ Zahl auf
     console.log('Prozent erreicht: ', percent);
-    // let ergebnis = (5 / 7) | 0;   // mit "| 0" SCHNEIDET man alle Nachkommastellen WEG !
     document.getElementById('progress_bar').innerHTML = percent + ' %';
     document.getElementById('progress_bar').style.width = `${percent}%`;
 }
@@ -128,8 +127,9 @@ function answer(selection) {  // ANTWORT wurde ausgelöst ... (selection enthäl
         audioRight.play();
         document.getElementById(selection).parentNode.classList.add('bg-success');  // gewählter Button wird GRÜN
         // "bg-" für background            
-        // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
-        // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
+        // "parentNode" fügt die CLASS nicht bei der ID, sondern bei der übergeordneten 
+        // BOX ein, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
+        
         rightQuestions++;    // Zähler richtige Antworten um 1 erhöhen
     } else {   // FALSCHE Antwort ... Buttons einfärben ...
         audioWrong.play();
