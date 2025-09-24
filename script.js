@@ -50,7 +50,7 @@ let questions = [
 ];
 
 let correntQuestion = 0;
-let idOfRightAnswer = "answer_" + questions[correntQuestion].right_answer;
+
 
 function init() {
     document.getElementById('all_questions').innerHTML = questions.length;
@@ -72,6 +72,8 @@ function answer(selection) {
 
     console.log('The Selection was: ', selection);
     console.log('actuell question is: ', question['question']);
+
+    let idOfRightAnswer = `answer_${question['right_answer']}`;
 
     if (selectedQuestionNumber == question['right_answer']) {
         console.log('Richtige Antwort !');
