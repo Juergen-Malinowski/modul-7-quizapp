@@ -15,38 +15,38 @@ let questions = [
         "answer_4": "spellcheck",
         "right_answer": 1,
     },
-    // {
-    //     "question": "Wie hieß einer der ersten Homecomputer?",
-    //     "answer_1": "D64-a",
-    //     "answer_2": "ATA Lerchon",
-    //     "answer_3": "ZX Spectrum",
-    //     "answer_4": "Lightning Seven",
-    //     "right_answer": 3,
-    // },
-    // {
-    //     "question": "Welches ist das älteste Textverarbeitungsprogramm?",
-    //     "answer_1": "Word 1.25",
-    //     "answer_2": "ABC Texter",
-    //     "answer_3": "Textmaster",
-    //     "answer_4": "Wordstar",
-    //     "right_answer": 4,
-    // },
-    // {
-    //     "question": "Welchen Prozesser nutzte der erste IBM-PC Modell 5150?",
-    //     "answer_1": "8088",
-    //     "answer_2": "JC 51",
-    //     "answer_3": "88-5150",
-    //     "answer_4": "Intel One",
-    //     "right_answer": 1,
-    // },
-    // {
-    //     "question": "Mit welcher Programmiersprache arbeiteten die ersten Homecomputer?",
-    //     "answer_1": "Pascal",
-    //     "answer_2": "CC",
-    //     "answer_3": "COBOL",
-    //     "answer_4": "Basic",
-    //     "right_answer": 4,
-    // },
+    {
+        "question": "Wie hieß einer der ersten Homecomputer?",
+        "answer_1": "D64-a",
+        "answer_2": "ATA Lerchon",
+        "answer_3": "ZX Spectrum",
+        "answer_4": "Lightning Seven",
+        "right_answer": 3,
+    },
+    {
+        "question": "Welches ist das älteste Textverarbeitungsprogramm?",
+        "answer_1": "Word 1.25",
+        "answer_2": "ABC Texter",
+        "answer_3": "Textmaster",
+        "answer_4": "Wordstar",
+        "right_answer": 4,
+    },
+    {
+        "question": "Welchen Prozesser nutzte der erste IBM-PC Modell 5150?",
+        "answer_1": "8088",
+        "answer_2": "JC 51",
+        "answer_3": "88-5150",
+        "answer_4": "Intel One",
+        "right_answer": 1,
+    },
+    {
+        "question": "Mit welcher Programmiersprache arbeiteten die ersten Homecomputer?",
+        "answer_1": "Pascal",
+        "answer_2": "CC",
+        "answer_3": "COBOL",
+        "answer_4": "Basic",
+        "right_answer": 4,
+    },
 ];
 
 let correntQuestion = 0;
@@ -54,8 +54,14 @@ let rightQuestions = 0;
 let resultPicture = "./img/result.jpg";
 let winningPicture = "./img/pokal.png";
 
+let audioWrong = new Audio('./mp3/loose.mp3');
+let audioRight = new Audio('./mp3/win.mp3');
+let audioResult = new Audio('./mp3/result.mp3');
+let audioWinning = new Audio('./mp3/win-king.mp3');
+let audioNextRound = new Audio('./mp3/next-round.mp3');
 
 function init() {
+    audioNextRound.play();
     document.getElementById('all_questions').innerHTML = questions.length;
     showQuestion();
 };
@@ -71,10 +77,12 @@ function showQuestion() {
         document.getElementById('right_questions').innerHTML = rightQuestions;
 
         if (rightQuestions == questions.length) {   // ALLES RICHTIG ... POKAL zeigen !!!
+            audioWinning.play();
             document.getElementById('title_picture').style = '';
             document.getElementById('title_picture').style = 'display: none;';
             document.getElementById("show_picture").src = winningPicture;
         } else { // MIT FEHLER ... ERGEBNIS zeigen !!!
+            audioResult.play();
             document.getElementById('title_picture').style = '';
             document.getElementById('title_picture').style = 'display: none;';
             document.getElementById("show_picture").src = resultPicture;
@@ -82,7 +90,7 @@ function showQuestion() {
         }
     } else {   // NÄCHSTE Frage ...
         // PROGRESS-BAR berechnen ... WERT ausgeben, BALKEN-Forschritt vergrößern
-        let percent = Math.round((correntQuestion+1) / questions.length * 100);  // "Math.round()" rundet auf GANZ Zahl auf
+        let percent = Math.round((correntQuestion + 1) / questions.length * 100);  // "Math.round()" rundet auf GANZ Zahl auf
         console.log('Prozent erreicht: ', percent);
         // let ergebnis = (5 / 7) | 0;   // mit "| 0" SCHNEIDET man alle Nachkommastellen WEG !
         document.getElementById('progress_bar').innerHTML = percent + ' %';
@@ -104,12 +112,14 @@ function answer(selection) {  // ANTWORT wurde ausgelöst ... (selection enthäl
     let idOfRightAnswer = `answer_${question['right_answer']}`;  // ermittelt korrekten Antwort-Button
 
     if (selectedQuestionNumber == question['right_answer']) {  // WENN gewählter Button = korrekter Button
+        audioRight.play();
         document.getElementById(selection).parentNode.classList.add('bg-success');  // gewählter Button wird GRÜN
         // "bg-" für background            
         // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
         // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
         rightQuestions++;    // Zähler richtige Antworten um 1 erhöhen
     } else {   // FALSCHE Antwort ... Buttons einfärben ...
+        audioWrong.play();
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // gedrückte Taste wird ROT
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');   // richtige Taste wird GRÜN
     }
@@ -143,6 +153,9 @@ function resetAnswerButtons() {  // Die Buttons wieder in Normalfarbe anzeigen .
     // }
 }
 
+function nextRound() {
+    location.href = location.href;  // JS fordert ein erneutes LADEN der index.HTML !!
+}
 
 
 
