@@ -40,10 +40,15 @@
                 <div>
                     <img src="./img/result.jpg" id="show_picture" class="width-100" alt="result-picture">
                 </div>
+                <div class="result_next_round">
+                    <div class="text-center">
+                        Du hast <b id="right_questions">X </b> Fragen von <b id="all_questions_result">X</b> Fragen
+                        richtig
+                        beantwortet !
+                    </div>
 
-                <div class="text-center">
-                    Du hast <b id="right_questions">X </b> Fragen von <b id="all_questions_result">X</b> Fragen richtig
-                    beantwortet !
+                    <button onclick="nextRound()" class="btn btn-primary text-center" disabled id="next_round">Neue
+                        Runde</button>
                 </div>
 
             </div>

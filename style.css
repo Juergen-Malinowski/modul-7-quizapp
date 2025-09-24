@@ -56,3 +56,8 @@ body {
     font-size: 40px;
 }
 
+.result_next_round {
+    display: flex;
+    justify-content: center;
+}
+
