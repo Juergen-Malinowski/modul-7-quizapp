@@ -50,7 +50,7 @@ let questions = [
 ];
 
 let correntQuestion = 0;
-
+let idOfRightAnswer = "answer_" + questions[correntQuestion].right_answer;
 
 function init() {
     document.getElementById('all_questions').innerHTML = questions.length;
@@ -66,21 +66,26 @@ function showQuestion() {
     document.getElementById('answer_4').innerHTML = question['answer_4'];
 };
 
-function answer(selection){
-        let question = questions[correntQuestion];
-        let selectedQuestionNumber = selection.slice(-1);
+function answer(selection) {
+    let question = questions[correntQuestion];
+    let selectedQuestionNumber = selection.slice(-1);
 
-        console.log('The Selection was: ', selection);
-        console.log('actuell question is: ', question['question']);        
+    console.log('The Selection was: ', selection);
+    console.log('actuell question is: ', question['question']);
 
-        if (selectedQuestionNumber == question['right_answer'] ) {
-            console.log('Richtige Antwort !');
-            
-        } else {
-            console.log('Falsche Antwort !');
-            
-        }
+    if (selectedQuestionNumber == question['right_answer']) {
+        console.log('Richtige Antwort !');
+        document.getElementById(selection).parentNode.classList.add('bg-success');
+        // "bg-" für background            
+        // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
+        // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
+
+    } else {
+        console.log('Falsche Antwort !');
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
+}
 
 
 

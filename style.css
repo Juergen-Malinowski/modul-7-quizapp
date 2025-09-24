@@ -29,3 +29,9 @@ body {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+.bg-success, .bg-danger {
+    /* 2 CLASS auf einen Schlag ein neues Element hinzufügen */
+    /* ACHTUNG: style.css NACH bootstrap einbinden !!! */
+    color: white;
+}
