@@ -81,6 +81,13 @@ function showQuestion() {
 
         }
     } else {   // NÄCHSTE Frage ...
+        // PROGRESS-BAR berechnen ... WERT ausgeben, BALKEN-Forschritt vergrößern
+        let percent = Math.round((correntQuestion+1) / questions.length * 100);  // "Math.round()" rundet auf GANZ Zahl auf
+        console.log('Prozent erreicht: ', percent);
+        // let ergebnis = (5 / 7) | 0;   // mit "| 0" SCHNEIDET man alle Nachkommastellen WEG !
+        document.getElementById('progress_bar').innerHTML = percent + ' %';
+        document.getElementById('progress_bar').style.width = `${percent}%`;
+
         let question = questions[correntQuestion];
         document.getElementById('question_number').innerHTML = correntQuestion + 1;
         document.getElementById('questiontext').innerHTML = question['question'];
