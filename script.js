@@ -51,9 +51,8 @@ let questions = [
 
 let correntQuestion = 0;
 let rightQuestions = 0;
-let questionPicture = "./img/question.jpg";
+let resultPicture = "./img/result.jpg";
 let winningPicture = "./img/pokal.png";
-let showingPicture = questionPicture;
 
 
 function init() {
@@ -62,8 +61,7 @@ function init() {
 };
 
 function showQuestion() {
-    document.getElementById("show_picture").src = showingPicture;
-    if (correntQuestion >= questions.length) {
+    if (correntQuestion >= questions.length) {  // ALLE FRAGEN beantwortet ?
         // in HTML hat die ID "end_screen" den style="display: none;" ...
         // dieser wird mit der Leerzuweisung .style ='' gelöscht !!!
         document.getElementById('end_screen').style = '';
@@ -71,13 +69,18 @@ function showQuestion() {
         document.getElementById('question_body').style = 'display: none;';
         document.getElementById('all_questions_result').innerHTML = questions.length;
         document.getElementById('right_questions').innerHTML = rightQuestions;
-        if (rightQuestions == questions.length) {
-            showingPicture = winningPicture;
-            document.getElementById("show_picture").src = showingPicture;
-        } else {
-        document.getElementById('show_picture').style = 'display: none;';
+
+        if (rightQuestions == questions.length) {   // ALLES RICHTIG ... POKAL zeigen !!!
+            document.getElementById('title_picture').style = '';
+            document.getElementById('title_picture').style = 'display: none;';
+            document.getElementById("show_picture").src = winningPicture;
+        } else { // MIT FEHLER ... ERGEBNIS zeigen !!!
+            document.getElementById('title_picture').style = '';
+            document.getElementById('title_picture').style = 'display: none;';
+            document.getElementById("show_picture").src = resultPicture;
+
         }
-    } else {
+    } else {   // NÄCHSTE Frage ...
         let question = questions[correntQuestion];
         document.getElementById('question_number').innerHTML = correntQuestion + 1;
         document.getElementById('questiontext').innerHTML = question['question'];
@@ -88,22 +91,23 @@ function showQuestion() {
     }
 };
 
-function answer(selection) {
-    let question = questions[correntQuestion];
-    let selectedQuestionNumber = selection.slice(-1);
-    let idOfRightAnswer = `answer_${question['right_answer']}`;
+function answer(selection) {  // ANTWORT wurde ausgelöst ... (selection enthält Antwort-Button)
+    let question = questions[correntQuestion];   // ARRAY ... Nr. korrekte Antwort?
+    let selectedQuestionNumber = selection.slice(-1);   // die ID bis auf Nr. Button reduzieren
+    let idOfRightAnswer = `answer_${question['right_answer']}`;  // ermittelt korrekten Antwort-Button
 
-    if (selectedQuestionNumber == question['right_answer']) {
-        document.getElementById(selection).parentNode.classList.add('bg-success');
+    if (selectedQuestionNumber == question['right_answer']) {  // WENN gewählter Button = korrekter Button
+        document.getElementById(selection).parentNode.classList.add('bg-success');  // gewählter Button wird GRÜN
         // "bg-" für background            
         // "parentNode" add die CLASS nicht bei der ID, sondern bei der übergeordneten 
         // BOX, die somit keine ID haben muss (Zugriff über die BOX darunter!) !!!
-        rightQuestions++;
-    } else {
-        document.getElementById(selection).parentNode.classList.add('bg-danger');
-        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        rightQuestions++;    // Zähler richtige Antworten um 1 erhöhen
+    } else {   // FALSCHE Antwort ... Buttons einfärben ...
+        document.getElementById(selection).parentNode.classList.add('bg-danger');   // gedrückte Taste wird ROT
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');   // richtige Taste wird GRÜN
     }
     document.getElementById('next_button').disabled = false;
+    // Button "Nächste Frage" wird aktiviert durch Abschalten "disabled"(voreingestellt in HTML)
 }
 
 function nextQuestion() {
@@ -116,7 +120,8 @@ function nextQuestion() {
     showQuestion();
 }
 
-function resetAnswerButtons() {
+function resetAnswerButtons() {  // Die Buttons wieder in Normalfarbe anzeigen ...
+    // remove ALLER möglich Einfärbungen ...
     document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_1').parentNode.classList.remove('bg-success');
     document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
